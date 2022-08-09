@@ -1,0 +1,191 @@
+ body {
+     padding:3.4375vw 0 0 0;
+     font:0.677083vw/1 "微软雅黑","黑体", Arial, Verdana, Helvetica, sans-serif;
+     width: 100vw;
+     height: 56.25vw;
+}
+ select,textarea{
+     font:0.677083vw/1 "微软雅黑","黑体", Arial, Verdana, Helvetica, sans-serif;
+}
+ .wrapper{
+     width:75vw;
+     margin: 0 auto;
+}
+ .m12{
+     margin-top:0.625vw;
+}
+ .m15{
+     margin-top:0.78125vw;
+}
+ .m10{
+     margin-top:0.520833vw;
+}
+ .m20{
+     margin-top:1.041667vw;
+}
+ .m30{
+     margin-top:1.5625vw;
+}
+ .m40{
+     margin-top:2.083333vw;
+}
+ .m50{
+     margin-top:2.604167vw;
+}
+ .m70{
+     margin-top:3.645833vw;
+}
+ .m100{
+     margin-top:5.208333vw;
+}
+ .mb5{
+     margin-bottom: 0.260417vw;
+}
+ .mb30{
+     margin-bottom: 1.5625vw;
+}
+ .mb50{
+     margin-bottom: 2.604167vw;
+}
+ .mb80{
+     margin-bottom: 4.166667vw;
+}
+ .mr50{
+     margin-right: 2.604167vw !important;
+}
+ .kbox.h260{
+     height: 13.541667vw;
+}
+ .kbox.h252{
+     height: 13.125vw;
+}
+ .toptitle{
+     left: 3.541667vw;
+     width: 93.59375vw;
+     height: 3.4375vw;
+     background-size: auto 1.770833vw;
+     padding-top: 0.9375vw;
+}
+ .toptitle span{
+     font-size: 1.666667vw;
+     padding: 0 0.78125vw;
+     height: 2.1875vw;
+     line-height: 1.979167vw;
+     letter-spacing: 0.104167vw;
+}
+ .cbox-title{
+     height: 3.229167vw;
+     padding-left: 2.083333vw;
+     margin-bottom: 0.260417vw;
+     padding-top: 0.260417vw;
+}
+ .cbox-title span{
+     width: 16.666667vw;
+     font-size: 0.9375vw;
+     padding: 0 0.78125vw;
+     line-height: 1.354167vw;
+     height: 1.458333vw;
+}
+ .cbox-con{
+     width: 100%;
+     height: 13.541667vw;
+     border-radius: 0.3125vw;
+     padding: 0.78125vw 1.041667vw;
+}
+ .cbox-con.speed{
+     height: 30.625vw;
+}
+ .con-left{
+     top: 4.166667vw;
+     left: 6.770833vw;
+     width: 22.135417vw;
+}
+ .con-right{
+     top: 4.166667vw;
+     left: 77.083333vw;
+     width: 22.135417vw;
+}
+ .con-center{
+     width: 46.354167vw;
+     top: 4.166667vw;
+     left: 30.208333vw;
+}
+ .con-center .kbox{
+     height: 37.5vw;
+}
+ .ktitle{
+     left: 11.71875vw;
+     top: 3.125vw;
+     font-size: 1.302083vw;
+}
+ .box-bottom{
+     top: 38.28125vw;
+     left: 6.770833vw;
+     width: 69.270833vw;
+}
+ .speed table tbody{
+     height: 13.385417vw;
+}
+ .defect table tbody{
+     height: 10.416667vw;
+}
+ td,th{
+     height: 1.458333vw;
+     font-size: 0.729167vw;
+}
+ th{
+     font-size: 0.78125vw;
+}
+ .nav{
+     left: 4.166667vw;
+     top: 2.5vw;
+}
+ .nav a{
+     height: 1.875vw;
+     font-size: 0.9375vw;
+     line-height: 1.71875vw;
+     padding: 0 0.520833vw;
+     margin-right: 0.520833vw;
+     border-radius: 0.416667vw;
+}
+ .leftnav{
+     left: 1.979167vw;
+     top: 8.072917vw;
+     width: 3.125vw;
+     height: 44.583333vw;
+}
+ .leftnav a{
+     height: 14.583333vw;
+}
+ #date{
+     top: 2.5vw;
+     left: 69.270833vw;
+}
+ #date input{
+     width: 8.333333vw;
+     height: 1.875vw;
+     font-size: 0.9375vw;
+     line-height: 1.71875vw;
+     padding: 0 0.520833vw;
+     margin-right: 0.78125vw;
+     border-radius: 0.416667vw;
+}
+ #date button{
+     width: 5.208333vw;
+     height: 1.875vw;
+     font-size: 0.9375vw;
+     line-height: 1.71875vw;
+     padding: 0 0.520833vw;
+     border-radius: 0.416667vw;
+}
+ #time{
+     left: 90.625vw;
+     top: 1.354167vw;
+     font-size: 1.041667vw;
+}
+.fullscreen{
+  right: 1.041666vw;
+  top: 1.3541666vw;
+  width: 0.9375vw;
+  height: 0.9375vw;
+}

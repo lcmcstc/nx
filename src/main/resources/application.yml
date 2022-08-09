@@ -1,0 +1,21 @@
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://127.0.0.1:1433;databaseName=JCYSF
+    username: sa
+    password: 379510
+  application:
+    name: microservice-provider
+  web:
+    resources:
+      static-locations: classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/public/
+server:
+  port: 8002
+
+
+initdata:
+  textile_pollution: 10
+  sewage_treatment: 2
+  chemical_pharmaceutical: 8

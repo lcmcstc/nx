@@ -559,6 +559,11 @@ window.onresize = function() {
 
     });
 
+    $.get("http://localhost:8002/realData/RealData_Left_List",function(data,status){
+        alert(JSON.stringify(data));
+
+    });
+
 
 
     function createMaker(com,lng,lat,num){

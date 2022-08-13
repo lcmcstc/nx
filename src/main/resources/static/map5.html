@@ -1,0 +1,1020 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+		<title>纪超</title>
+		<link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+		<style>
+			html,
+			body,
+			#container {
+				height: 100%;
+				width: 100%;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.header {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				position: absolute;
+				top: 50px;
+				left: 3%;
+				z-index: 9;
+				height: 100px;
+			}
+
+			.header .headTitle {
+				width: 1340px;
+			}
+
+			.header .headTitle img {
+				width: 100%
+			}
+
+			.header .headTime {
+				background: url(images/time.png)no-repeat;
+				background-size: 100%;
+				width: 260px;
+				margin-right: 5%;
+				color: #fff;
+				font-size: 16px;
+				font-weight: 500;
+				text-align: center;
+				line-height: 48px;
+			}
+
+			.content {
+				position: absolute;
+				width: 97%;
+				z-index: 9;
+				display: flex;
+				justify-content: space-between;
+				top: 150px;
+				left: 3%
+			}
+
+			.content .leftContent {
+				width: 18%;
+				line-height: 0;
+				padding: 0;
+				margin: 0;
+			}
+
+			.w100 {
+				width: 100%;
+			}
+
+			.content .leftc {
+				background: url(images/leftc.png) repeat-y;
+				background-size: 100%;
+				width: 100%;
+				min-height: 100px;
+			}
+
+			.content .leftList {
+				width: 90%;
+				margin: 0 auto 10px auto;
+				display: flex;
+				color: #fff;
+				font-size: 14px;
+				justify-content: space-between;
+				padding: 30px 0 0 0
+			}
+
+			.content .leftList1 {
+				width: 90%;
+				margin: 0 auto;
+				display: flex;
+				color: #fff;
+				font-size: 14px;
+				justify-content: space-between;
+				padding: 45px 0 0 0;
+				line-height: 100%;
+			}
+
+			.content .leftb {
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				line-height: 0;
+			}
+
+			.content .listName {
+				flex-shrink: 1;
+				width: 35%;
+				text-align: center;
+			}
+
+			.content .listOther {
+				width: 21%;
+				text-align: center;
+			}
+
+			.content .listName1 {
+				flex-shrink: 1;
+				width: 35%;
+				text-align: center;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+			}
+
+			
+
+			.content .centerContent {
+				width: 50%;
+				display: flex;
+				justify-content: space-between;
+			}
+
+			.content .rightContent {
+				width: 18%;
+				margin-right: 3%;
+			}
+
+			.content .iconLeft {
+				width: 621px;
+				margin: 0
+			}
+
+			.content .iconList {
+				background: url(images/centerList.png)no-repeat -1px -2px;
+				background-size: 50%;
+				width: 621px;
+				height: 144px;
+				display: flex;
+			}
+
+			.content .iconList .iconView {
+				width: 72px;
+				background: rgba(0, 0, 0, .7);
+				border-radius: 72px;
+				margin: 0;
+				position: relative;
+				height: 72px;
+				background-position: 3px;
+			}
+
+			.content .iconList .iconAni {
+				width: 86px;
+				position: absolute;
+				top: -7px;
+				left: -6px;
+				z-index: 99
+			}
+
+			.content .iconList .icon1 {
+				width: 40px;
+				position: absolute;
+				z-index: 100;
+				top: 15px;
+				left: 17px
+			}
+
+			.content .iconText {
+				margin: 8px 0 0 20px;
+			}
+
+			.content .iconRightText {
+				margin: 8px 20px 0 0;
+			}
+
+			.content .iconTextTitle {
+				font-size: 18px;
+				color: #51c5eb;
+				font-weight: 500;
+			}
+
+			.content .iconTextContent {
+				font-size: 20px;
+				color: #ffffff;
+				font-weight: 500;
+			}
+
+			.content .text1 {
+				font-size: 14px !important;
+				padding: 0 0 0 5px
+			}
+
+			.content .iconRight {
+				width: 621px;
+				margin: 0
+			}
+
+			.content .iconRightList {
+				background: url(images/centerRight.png)no-repeat top right;
+				background-size: 50%;
+				width: 621px;
+				height: 144px;
+				display: flex;
+				justify-content: right;
+			}
+
+			.content .iconRightList .iconView {
+				width: 72px;
+				background: rgba(0, 0, 0, .7);
+				border-radius: 72px;
+				margin: 2px 18px 0 0;
+				position: relative;
+				height: 72px;
+				background-position: 3px;
+			}
+
+			.content .iconRightList .iconAni {
+				width: 86px;
+				position: absolute;
+				top: -7px;
+				left: -6px;
+				z-index: 99
+			}
+
+			.content .iconRightList .icon1 {
+				width: 40px;
+				position: absolute;
+				z-index: 100;
+				top: 15px;
+				left: 17px
+			}
+
+			.content .iconRightTextTitle {
+				font-size: 18px;
+				color: #51c5eb;
+				font-weight: 500;
+				text-align: right
+			}
+
+			.info {
+				background: none;
+				height: 40px;
+				margin-top: -10px;
+				line-height: 40px;
+				box-shadow: none;
+				color: #fff;
+				font-size: 14px;
+				padding: 0 0 0 160px;
+			}
+
+			.right_select {
+				overflow: hidden;
+				margin-bottom: 10px;
+				width: 100%;
+			}
+
+			.right_select .leftc {
+				overflow: hidden;
+				margin-top: -4px;
+			}
+
+			.right_select select {
+				height: 30px;
+				line-height: 30px;
+				border: solid 1px #596e7f;
+				display: block;
+				width: 90%;
+				margin: 20px auto;
+				background: none;
+				color: #90a0ae;
+				padding: 0px;
+				padding-left: 15px;
+			}
+
+			.right_select select option {
+				line-height: 30px;
+				height: 30px;
+				color: #90a0a1;
+				background: #202020;
+			}
+
+			.right_select .lbl_tip {
+				margin: 0px 0;
+				overflow: hidden;
+				color: #46f9f9;
+				font-size: 24px;
+				font-weight: bold;
+				text-align: center;
+			}
+
+			.right_infor {
+				width: 100%;
+				overflow: hidden;
+			}
+
+			.right_infor .leftc {
+				overflow: hidden;
+				margin-top: -5px;
+			}
+
+			.right_infor .s_tit {
+				color: #fff;
+				font-size: 16px;
+				text-align: center;
+				overflow: hidden;
+				margin: 10px 0;
+			}
+
+			.right_infor .s_num {
+				color: #46f9f9;
+				font-size: 18px;
+				font-weight: Bold;
+				text-align: center;
+				overflow: hidden;
+				margin: 10px 0;
+				margin-top: 10px;
+			}
+
+			.right_infor .s_series {
+				overflow: Hidden;
+				margin: 10px auto;
+				width: 90%;
+				margin-bottom: 10px;
+			}
+
+			.right_infor .s_series div {
+				float: left;
+				overflow: hidden;
+				width: 33.3%;
+				text-align: center;
+			}
+
+			.right_infor .s_series div span {
+				display: block;
+				font-size: 16px;
+				color: #fff;
+			}
+
+			.right_infor .s_series div label {
+				display: block;
+				font-size: 18px;
+				font-weight: bold;
+				color: #2a8fff;
+			}
+
+			.right_infor .s_series div:nth-child(3) label {
+				color: #fff;
+			}
+
+			.right_btns {
+				overflow: hidden;
+			}
+
+			.right_btns .leftc {
+				overflow: hidden;
+				margin-top: -5px;
+				padding-top: 10px;
+			}
+
+			.right_btns .s_single {
+				float: left;
+				width: 32%;
+				margin: 0px 9%;
+				overflow: hidden;
+			}
+
+			.right_btns .s_single .l_tip {
+				float: left;
+				color: #fff;
+				font-size: 16px;
+				line-height: 30px;
+				margin-top: 16px;
+			}
+
+			.right_btns .s_single .r_txt {
+				float: left;
+				margin-left: 10%;
+			}
+
+			/* .slideOne */
+			.slideOne {
+				width: 60px;
+				height: 20px;
+				background: none;
+				margin: 20px auto;
+				position: relative;
+				-moz-border-radius: 50px;
+				-webkit-border-radius: 50px;
+				border-radius: 50px;
+				border: solid 1px #00d2e7;
+				/*
+		  -moz-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+		  -webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+		  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+		  */
+			}
+
+			.slideOne label {
+				display: block;
+				width: 20px;
+				height: 20px;
+				position: absolute;
+				top: -3px;
+				left: -3px;
+				cursor: pointer;
+				background: #00d2e7;
+				border-radius: 50px;
+				/*
+		  background: #fcfff4;
+		  background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+		  background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+		  background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+		  -moz-border-radius: 50px;
+		  -webkit-border-radius: 50px;
+		  border-radius: 50px;
+		  -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+		  -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+		  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+		  */
+				-moz-transition: all 0.4s ease;
+				-o-transition: all 0.4s ease;
+				-webkit-transition: all 0.4s ease;
+				transition: all 0.4s ease;
+			}
+
+			.slideOne input[type=checkbox] {
+				visibility: hidden;
+			}
+
+			.slideOne input[type=checkbox]:checked+label {
+				left: 37px;
+			}
+
+			/* end .slideOne */
+			.highcharts-button-box {
+				display: none;
+			}
+
+			.highcharts-button-symbol {
+				display: None;
+			}
+			.out{
+				width:150px;height:22px;background:#101a27;position: absolute;z-index: 999;bottom:0;left:0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="out"></div>
+		<div class="header">
+			<div class="headTitle">
+				<img src="images/header.png">
+			</div>
+			<div id="localtime" class="headTime">
+
+			</div>
+		</div>
+		<div class="content">
+			<div class="leftContent">
+				<div class="w100"><img src="images/leftt.png" class="w100"></div>
+				<div class="leftc" id="news" style="height: 740px;overflow: hidden;ss">
+
+					<div class="leftList">
+						<div class="listName">用户</div>
+						<div class="listOther">流量(t/h)</div>
+						<div class="listOther">温度(℃)</div>
+						<div class="listOther">压力(MPa)</div>
+					</div>
+					<ul style="margin: 0;" id="RealData_Left_List">
+					</ul>
+				</div>
+				<div class="leftb"><img src="images/leftb.png" style="width:100%"></div>
+			</div>
+			<div class="centerContent">
+				<div class="iconLeft">
+					<div class="iconList">
+						<div class="iconView">
+							<div class="iconAni"><img src="images/centerlistbg.png" style="width:100%;"></div>
+							<div class="icon1"><img src="images/icon1.svg" style="width: 100%;"></div>
+						</div>
+						<div class="iconText">
+							<div class="iconTextTitle">余额</div>
+							<div class="iconTextContent"><span id="ye"></span><span class="text1">元</span></div>
+						</div>
+					</div>
+					<div class="iconList">
+						<div class="iconView">
+							<div class="iconAni"><img src="images/centerlistbg.png" style="width:100%;"></div>
+							<div class="icon1"><img src="images/icon2.svg" style="width: 100%;"></div>
+						</div>
+						<div class="iconText">
+							<div class="iconTextTitle">流量</div>
+							<div class="iconTextContent" ><span id="f"></span><span class="text1">t/h</span></div>
+						</div>
+					</div>
+					<div class="iconList">
+						<div class="iconView">
+							<div class="iconAni"><img src="images/centerlistbg.png" style="width:100%;"></div>
+							<div class="icon1"><img src="images/icon3.svg" style="width: 100%;"></div>
+						</div>
+						<div class="iconText">
+							<div class="iconTextTitle">温度</div>
+							<div class="iconTextContent" ><span id="t"></span><span class="text1">C</span></div>
+						</div>
+					</div>
+					<div class="iconList">
+						<div class="iconView">
+							<div class="iconAni"><img src="images/centerlistbg.png" style="width:100%;"></div>
+							<div class="icon1"><img src="images/icon4.svg" style="width: 100%;"></div>
+						</div>
+						<div class="iconText">
+							<div class="iconTextTitle">压力</div>
+							<div class="iconTextContent"><span id="p"></span><span class="text1">Mpa</span></div>
+						</div>
+					</div>
+					<div class="iconList">
+						<div class="iconView">
+							<div class="iconAni"><img src="images/centerlistbg.png" style="width:100%;"></div>
+							<div class="icon1"><img src="images/icon5.svg" style="width: 100%;"></div>
+						</div>
+						<div class="iconText">
+							<div class="iconTextTitle">总量</div>
+							<div class="iconTextContent"><span id="tot"></span><span class="text1">t</span></div>
+						</div>
+					</div>
+					<div class="iconList">
+						<div class="iconView">
+							<div class="iconAni"><img src="images/centerlistbg.png" style="width:100%;"></div>
+							<div class="icon1"><img src="images/icon6.svg" style="width: 100%;"></div>
+						</div>
+						<div class="iconText">
+							<div class="iconTextTitle">频率</div>
+							<div class="iconTextContent" ><span id="pl"></span><span class="text1">Hz</span></div>
+						</div>
+					</div>
+				</div>
+				<div class="iconRight">
+					<div class="iconRightList">
+						<div class="iconRightText">
+							<div class="iconRightTextTitle">密度</div>
+							<div class="iconTextContent"><span id="md"></span><span class="text1">kg/m</span></div>
+						</div>
+						<div class="iconView">
+							<div class="iconAni"><img src="images/centerlistbg.png" style="width:100%;"></div>
+							<div class="icon1"><img src="images/icon7.svg" style="width: 100%;"></div>
+						</div>
+					</div>
+					<div class="iconRightList">
+						<div class="iconRightText">
+							<div class="iconRightTextTitle">电压</div>
+							<div class="iconTextContent" ><span id="voltage"></span><span class="text1">v</span></div>
+						</div>
+						<div class="iconView">
+							<div class="iconAni"><img src="images/centerlistbg.png" style="width:100%;"></div>
+							<div class="icon1"><img src="images/icon8.svg" style="width: 100%;"></div>
+						</div>
+					</div>
+					<div class="iconRightList">
+						<div class="iconRightText">
+							<div class="iconRightTextTitle">供电</div>
+							<div class="iconTextContent"><span class="text1" id="isDc">直流</span></div>
+						</div>
+						<div class="iconView">
+							<div class="iconAni"><img src="images/centerlistbg.png" style="width:100%;"></div>
+							<div class="icon1"><img src="images/icon9.svg" style="width: 100%;"></div>
+						</div>
+					</div>
+					<div class="iconRightList">
+						<div class="iconRightText">
+							<div class="iconRightTextTitle">阀门</div>
+							<div class="iconTextContent"><span class="text1" id="valveDI">门开</span></div>
+						</div>
+						<div class="iconView">
+							<div class="iconAni"><img src="images/centerlistbg.png" style="width:100%;"></div>
+							<div class="icon1"><img src="images/icon10.svg" style="width: 100%;"></div>
+						</div>
+					</div>
+					<div class="iconRightList">
+						<div class="iconRightText">
+							<div class="iconRightTextTitle">通讯</div>
+							<div class="iconTextContent"><span class="text1" id="comState"></span></div>
+						</div>
+						<div class="iconView">
+							<div class="iconAni"><img src="images/centerlistbg.png" style="width:100%;"></div>
+							<div class="icon1"><img src="images/icon11.svg" style="width: 100%;"></div>
+						</div>
+					</div>
+					<div class="iconRightList">
+						<div class="iconRightText">
+							<div class="iconRightTextTitle">柜门</div>
+							<div class="iconTextContent"><span class="text1" id="doorOpen">门开</span></div>
+						</div>
+						<div class="iconView">
+							<div class="iconAni"><img src="images/centerlistbg.png" style="width:100%;"></div>
+							<div class="icon1"><img src="images/icon12.svg" style="width: 100%;"></div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="rightContent">
+				<div class="right_select">
+					<div class="w100"><img src="images/leftt.png" class="w100"></div>
+					<div class="leftc">
+						<select id="select">
+						</select>
+						<div class="lbl_tip" id="selectName">中试基地</div>
+						<!--/lbl_tip-->
+					</div>
+					<!--/bdy-->
+					<div class="leftb"><img src="images/leftb.png" style="width:100%"></div>
+				</div>
+				<!--/right_select-->
+				<div class="right_infor">
+					<div class="w100"><img src="images/leftt.png" class="w100"></div>
+					<div class="leftc">
+						<div class="s_tit">总计用户数量</div>
+						<div class="s_num" id="totalUserNum">20</div>
+						<div class="s_series">
+							<div><span>纺织印刷</span><label id="sewageTreatment">10</label></div>
+							<div><span>污水处理</span><label id="textilePollution">02</label></div>
+							<div><span>化工制药</span><label id="chemicalPharmaceutical">08</label></div>
+						</div>
+						<!--/s_series-->
+						<div style="width:80%;margin:10px auto;height:200px;background:None;" id="chart_1">
+						</div>
+					</div>
+					<div class="leftb"><img src="images/leftb.png" style="width:100%"></div>
+				</div>
+				<!--/right_infor-->
+				<div class="right_btns">
+					<div class="w100"><img src="images/leftt.png" class="w100"></div>
+					<div class="leftc">
+						<div class="s_single">
+							<div class="l_tip">管道视图</div>
+							<div class="r_txt">
+								<div class="slideOne">
+									<input type="checkbox" value="None" id="slideOne" name="check" checked />
+									<label for="slideOne"></label>
+								</div>
+							</div>
+							<!--/r_txt-->
+						</div>
+						<!--/s_single-->
+						<div class="s_single">
+							<div class="l_tip">信息显示</div>
+							<div class="r_txt">
+								<div class="slideOne">
+									<input type="checkbox" value="None" id="slideOne" name="check" checked />
+									<label for="slideOne"></label>
+								</div>
+							</div>
+							<!--/r_txt-->
+						</div>
+						<!--/s_single-->
+<!--						<div class="s_single">-->
+<!--							<div class="l_tip">用户名称</div>-->
+<!--							<div class="r_txt">-->
+<!--								<div class="slideOne">-->
+<!--									<input type="checkbox" value="None" id="slideOne" name="check" checked />-->
+<!--									<label for="slideOne"></label>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--							&lt;!&ndash;/r_txt&ndash;&gt;-->
+<!--						</div>-->
+<!--						&lt;!&ndash;/s_single&ndash;&gt;-->
+<!--						<div class="s_single">-->
+<!--							<div class="l_tip">用户图标</div>-->
+<!--							<div class="r_txt">-->
+<!--								<div class="slideOne">-->
+<!--									<input type="checkbox" value="None" id="slideOne" name="check" checked />-->
+<!--									<label for="slideOne"></label>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--							&lt;!&ndash;/r_txt&ndash;&gt;-->
+<!--						</div>-->
+						<!--/s_single-->
+					</div>
+					<div class="leftb"><img src="images/leftb.png" style="width:100%"></div>
+				</div>
+				<!--/right_btns-->
+			</div>
+		</div>
+		<div id="container"></div>
+		<script src="js/jquery.js"></script>
+		<script type="text/javascript">
+			let url="http://47.99.77.150:8002";
+
+			function showLocale(objD) {
+				var str, colorhead, colorfoot;
+				var yy = objD.getYear();
+				if (yy < 1900) yy = yy + 1900;
+				var MM = objD.getMonth() + 1;
+				if (MM < 10) MM = '0' + MM;
+				var dd = objD.getDate();
+				if (dd < 10) dd = '0' + dd;
+				var hh = objD.getHours();
+				if (hh < 10) hh = '0' + hh;
+				var mm = objD.getMinutes();
+				if (mm < 10) mm = '0' + mm;
+				var ss = objD.getSeconds();
+				if (ss < 10) ss = '0' + ss;
+				var ww = objD.getDay();
+				if (ww == 0) colorhead = "<font color=\"#527596\">";
+				if (ww > 0 && ww < 6) colorhead = "<font color=\"#527596\">";
+				if (ww == 6) colorhead = "<font color=\"#527596\">";
+				if (ww == 0) ww = "星期日";
+				if (ww == 1) ww = "星期一";
+				if (ww == 2) ww = "星期二";
+				if (ww == 3) ww = "星期三";
+				if (ww == 4) ww = "星期四";
+				if (ww == 5) ww = "星期五";
+				if (ww == 6) ww = "星期六";
+				colorfoot = "</font>"
+				str = +yy + "-" + MM + "-" + dd + " " +
+					"<span>" + hh + ":" + mm + ":" + ss + "  " + "</span>" +
+					ww;
+				return (str);
+			}
+			//显示时间
+			function tick() {
+				var today;
+				today = new Date();
+
+				document.getElementById("localtime").innerHTML = showLocale(today);
+				window.setTimeout("tick()", 1000);
+			}
+			tick();
+		</script>
+		<script>
+			//左侧轮播列表渲染
+			$.get(url+"/realData/RealData_Left_List",function(data,status){
+				let strHtml='';
+				for(let i=0; i<data.length; i++){
+					strHtml+='<li class="leftList1">' +
+							'<div class="listName1">'+data[i].theName+'</div>' +
+							'<div class="listOther">'+data[i].f+'</div>' +
+							'<div class="listOther">'+data[i].t+'</div>' +
+							'<div class="listOther">'+data[i].p+'</div>' +
+							'</li>';
+				}
+				$("#RealData_Left_List")[0].innerHTML=strHtml;
+			});
+
+			//下拉框初始化
+			selectInit();
+			function selectInit(){
+				var i_name;
+				var i_value;
+				$.get(url+"/stationInfo/drawList",function(data,status){
+					let strHtml='';
+					for(let i=0;i<data.length;i++){
+						strHtml+='<option value="'+data[i].sno+'">'+data[i].theName+'</option>';
+					}
+					$("#select")[0].innerHTML=strHtml;
+					i_name=data[0].theName;
+					i_value=data[0].sno;
+					$("#select  option:selected").text(i_name);
+					$("#select  option:selected").val(i_value);
+					fillreport();
+				});
+			}
+
+			$(function() {
+				$('#select').change(function(e) {
+					fillreport();
+				})
+			});
+
+			function fillreport() {
+				var name = $("#select  option:selected").text(); //获取select里的内容
+				var val = $("#select  option:selected").val(); //获取select里的value值
+				document.getElementById("selectName").innerHTML = name;
+				updateMain(val);
+			}
+
+			function updateMain(stationId){
+				$.get(url+"/realData/getByStation?stationId="+stationId,function(data,status){
+					$("#ye")[0].innerHTML=data.ye.toFixed(2);
+					$("#f")[0].innerHTML=data.f.toFixed(2);
+					$("#t")[0].innerHTML=data.t.toFixed(2);
+					$("#p")[0].innerHTML=data.p.toFixed(2);
+
+					$("#tot")[0].innerHTML=data.tot.toFixed(2);
+					$("#pl")[0].innerHTML=data.pl.toFixed(2);
+					$("#md")[0].innerHTML=data.md.toFixed(2);
+					$("#voltage")[0].innerHTML=data.voltage.toFixed(2);
+					if(data.isDc){
+						$("#isDc")[0].innerHTML='直流电';
+					}else{
+						$("#isDc")[0].innerHTML='交流电';
+					}
+					if(data.valveDI){
+						$("#valveDI")[0].innerHTML='打开';
+					}else{
+						$("#valveDI")[0].innerHTML='关闭';
+					}
+					if(data.comState){
+						$("#comState")[0].innerHTML='打开';
+					}else{
+						$("#comState")[0].innerHTML='关闭';
+					}
+					if(data.doorOpen){
+						$("#doorOpen")[0].innerHTML='打开';
+					}else{
+						$("#doorOpen")[0].innerHTML='关闭';
+					}
+				});
+			}
+
+		</script>>
+		<script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=2a465ce90349f99886b417aeb804b6cf">
+		</script>
+		<script type="text/javascript">
+			// 创建地图实例
+			var map = new AMap.Map("container", {
+				zoom: 17,
+				center: [116.478935, 39.997761],
+				resizeEnable: true,
+				rotateEnable: true,
+				pitchEnable: true,
+				viewMode: '3D',
+				pitch: 65,
+				rotation: -195,
+				mapStyle: 'amap://styles/be4fe665b7f1a63f77430e381ad86fd2'
+			});
+
+			AMap.plugin([
+				'AMap.ControlBar',
+			], function() {
+
+				var deg = 0
+				setInterval(() => {
+					deg += 0.01
+					map.setRotation(deg)
+				}, 20)
+			});
+
+			AMap.plugin('AMap.MoveAnimation', function() {
+				var marker2 = new AMap.Marker({
+					map: map,
+					position: [116.478935, 39.997761],
+					icon: "./car.png",
+					offset: new AMap.Pixel(0, 0),
+				});
+				marker2.setLabel({
+					direction: 'top',
+					offset: new AMap.Pixel(25, 40), //设置文本标注偏移量
+					content: "<div class='info' id='ttt' >鸳鸯湖电厂</div>", //设置文本标注内容
+				});
+
+
+				var marker, lineArr = [
+					[116.478935, 39.997761],
+					[116.478939, 39.997825],
+					[116.478912, 39.998549],
+					[116.478912, 39.998549],
+					[116.478998, 39.998555],
+					[116.478998, 39.998555],
+					[116.479282, 39.99856],
+					[116.479658, 39.998528],
+					[116.480151, 39.998453],
+					[116.480784, 39.998302],
+					[116.480784, 39.998302],
+					[116.481149, 39.998184],
+					[116.481573, 39.997997],
+					[116.481863, 39.997846],
+					[116.482072, 39.997718],
+					[116.482362, 39.997718],
+					[116.483633, 39.998935],
+					[116.48367, 39.998968],
+					[116.484648, 39.999861]
+				];
+
+				marker = new AMap.Marker({
+					map: map,
+					position: [116.478935, 39.997761],
+					icon: "./car.jpg",
+					offset: new AMap.Pixel(0, 0),
+				});
+
+				// 绘制轨迹
+				var polyline = new AMap.Polyline({
+					map: map,
+					path: lineArr,
+					// showDir:true,
+					strokeColor: "#202b35", //线颜色
+					// strokeOpacity: 1,     //线透明度
+					strokeWeight: 6, //线宽
+					// strokeStyle: "solid"  //线样式
+				});
+
+				var passedPolyline = new AMap.Polyline({
+					map: map,
+					strokeColor: "#AF5", //线颜色
+					strokeWeight: 6, //线宽
+				});
+
+
+				marker.on('moving', function(e) {
+					passedPolyline.setPath(e.passedPath);
+					//map.setCenter(e.target.getPosition(), true)
+				});
+
+				map.setFitView();
+
+
+
+				setInterval(() => {
+					marker.moveAlong(lineArr, {
+						// 每一段的时长
+						duration: 100, //可根据实际采集时间间隔设置
+						// JSAPI2.0 是否延道路自动设置角度在 moveAlong 里设置
+						autoRotation: true
+					});
+				}, 5000)
+			});
+		</script>
+
+		<script type="text/javascript" src="js/highcharts.js"></script>
+		<script type="text/javascript" src="js/highcharts-3d.js"></script>
+		<script src="https://cdn.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+		<script type="text/javascript" src="js/highcharts-zh_CN.js"></script>
+		<script>
+			//右侧统计信息
+			$.get(url+"/realData/RealData_right_mid",function(data,status){
+				$("#totalUserNum")[0].innerHTML=data.totalUserNum;
+				$("#textilePollution")[0].innerHTML=data.textilePollution;
+				$("#sewageTreatment")[0].innerHTML=data.sewageTreatment;
+				$("#chemicalPharmaceutical")[0].innerHTML=data.chemicalPharmaceutical;
+				lmd(data.textilePollution,data.sewageTreatment,data.chemicalPharmaceutical);
+			});
+
+			function lmd(textilePollution,sewageTreatment,chemicalPharmaceutical){
+				var chart = Highcharts.chart('chart_1', {
+					chart: {
+						type: 'pie',
+						options3d: {
+							enabled: true,
+							alpha: 45
+						},
+						backgroundColor: 'none',
+					},
+					title: {
+						text: "",
+						style: {
+							"display": "none"
+						}
+					},
+					tooltip: {
+						pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+					},
+					plotOptions: {
+						pie: {
+							innerSize: 50,
+							depth: 15
+						}
+					},
+					series: [{
+						type: 'pie',
+						name: '用户数据',
+						data: [{
+							name: '纺织印刷',
+							y: sewageTreatment,
+							color: "#2c95ff",
+						},
+							{
+								name: '污水处理',
+								y: textilePollution,
+								selected: true,
+								color: "#20d2ff",
+							},
+							{
+								name: '化工制药',
+								y: chemicalPharmaceutical,
+								selected: false,
+								color: "#fff",
+							},
+						]
+					}]
+				});
+			}
+
+		</script>
+		<script>
+			$(function() {
+				var $this = $("#news");
+				var scrollTimer;
+				$this.hover(function() {
+					clearInterval(scrollTimer);
+				}, function() {
+					scrollTimer = setInterval(function() {
+						scrollNews($this);
+					}, 2000);
+				}).trigger("mouseleave");
+
+				function scrollNews(obj) {
+					var $self = obj.find("ul");
+					var lineHeight = $self.find("li:first").height();
+					$self.animate({
+						"marginTop": -lineHeight + "px"
+					}, 600, function() {
+						$self.css({
+							marginTop: 0
+						}).find("li:first").appendTo($self);
+					})
+				}
+			})
+		</script>
+	</body>
+</html>

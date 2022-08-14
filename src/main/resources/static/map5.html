@@ -6,6 +6,7 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
 		<title>纪超</title>
 		<link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+		<link href="css/select2.min.css" rel="stylesheet" />
 		<style>
 			html,
 			body,
@@ -268,21 +269,28 @@
 				overflow: hidden;
 				margin-top: -4px;
 			}
-
-			.right_select select {
+			.right_select .slt_div{
+			  width: 90%;
+			  overflow:hidden;
+			  margin:20px auto;
+			}
+			.right_select .slt_div div,.right_select .slt_div span{
+			  background: none;
+			  color: #90a0ae;
+			}			
+			.right_select .slt {
 				height: 30px;
 				line-height: 30px;
 				border: solid 1px #596e7f;
 				display: block;
-				width: 90%;
+				width: 100%;
 				margin: 20px auto;
 				background: none;
 				color: #90a0ae;
 				padding: 0px;
 				padding-left: 15px;
 			}
-
-			.right_select select option {
+			.right_select .slt option {
 				line-height: 30px;
 				height: 30px;
 				color: #90a0a1;
@@ -388,7 +396,7 @@
 			}
 
 			/* .slideOne */
-			.slideOne {
+			.slideOne1,.slideOne2,.slideOne3,.slideOne4 {
 				width: 60px;
 				height: 20px;
 				background: none;
@@ -405,7 +413,7 @@
 		  */
 			}
 
-			.slideOne label {
+			.slideOne1 label,.slideOne2 label,.slideOne3 label,.slideOne4 label{
 				display: block;
 				width: 20px;
 				height: 20px;
@@ -433,15 +441,16 @@
 				transition: all 0.4s ease;
 			}
 
-			.slideOne input[type=checkbox] {
+			.slideOne1 input[type=checkbox],.slideOne2 input[type=checkbox],.slideOne3 input[type=checkbox],.slideOne4 input[type=checkbox] {
 				visibility: hidden;
 			}
 
-			.slideOne input[type=checkbox]:checked+label {
+			.slideOne1 input[type=checkbox]:checked+label,.slideOne2 input[type=checkbox]:checked+label,.slideOne3 input[type=checkbox]:checked+label,.slideOne4 input[type=checkbox]:checked+label {
 				left: 37px;
 			}
 
 			/* end .slideOne */
+			
 			.highcharts-button-box {
 				display: none;
 			}
@@ -611,8 +620,9 @@
 				<div class="right_select">
 					<div class="w100"><img src="images/leftt.png" class="w100"></div>
 					<div class="leftc">
-						<select id="select">
-						</select>
+					    <div class="slt_div">
+						  <select id="select" class="slt"></select>
+						</div><!--/slt_div-->
 						<div class="lbl_tip" id="selectName">中试基地</div>
 						<!--/lbl_tip-->
 					</div>
@@ -643,9 +653,9 @@
 						<div class="s_single">
 							<div class="l_tip">管道视图</div>
 							<div class="r_txt">
-								<div class="slideOne">
-									<input type="checkbox" value="None" id="slideOne" name="check" checked />
-									<label for="slideOne"></label>
+								<div class="slideOne1">
+									<input type="checkbox" value="None2" id="slideOne1" name="check1" checked />
+									<label for="slideOne1"></label>
 								</div>
 							</div>
 							<!--/r_txt-->
@@ -654,9 +664,9 @@
 						<div class="s_single">
 							<div class="l_tip">信息显示</div>
 							<div class="r_txt">
-								<div class="slideOne">
-									<input type="checkbox" value="None" id="slideOne" name="check" checked />
-									<label for="slideOne"></label>
+								<div class="slideOne2">
+									<input type="checkbox" value="None2" id="slideOne2" name="check2" checked />
+									<label for="slideOne2"></label>
 								</div>
 							</div>
 							<!--/r_txt-->
@@ -692,8 +702,21 @@
 		</div>
 		<div id="container"></div>
 		<script src="js/jquery.js"></script>
+		
+		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 		<script type="text/javascript">
-			let url="http://47.99.77.150:8002";
+			function getParentUrlParam(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+				var r = window.parent.location.search.substr(1).match(reg);  //匹配目标参数
+				if (r != null) return unescape(r[2]); return null; //返回参数值
+			}
+			let aip=getParentUrlParam('aip');
+			let url;
+			if(aip==null){
+				url="http://47.99.77.150:8002";
+			}else{
+				url="http://"+aip+":8002";
+			}
 
 			function showLocale(objD) {
 				var str, colorhead, colorfoot;
@@ -821,6 +844,9 @@
 		<script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=2a465ce90349f99886b417aeb804b6cf">
 		</script>
 		<script type="text/javascript">
+		    var passedPolyline=null;
+			var marker =null;
+			var lineArr=[];
 			// 创建地图实例
 			var map = new AMap.Map("container", {
 				zoom: 17,
@@ -844,22 +870,46 @@
 					map.setRotation(deg)
 				}, 20)
 			});
-
+			
 			AMap.plugin('AMap.MoveAnimation', function() {
-				var marker2 = new AMap.Marker({
+				var marker11 = new AMap.Marker({
 					map: map,
 					position: [116.478935, 39.997761],
 					icon: "./car.png",
 					offset: new AMap.Pixel(0, 0),
 				});
-				marker2.setLabel({
+				marker11.setLabel({
 					direction: 'top',
 					offset: new AMap.Pixel(25, 40), //设置文本标注偏移量
-					content: "<div class='info' id='ttt' >鸳鸯湖电厂</div>", //设置文本标注内容
+					content: "<div class='info' >鸳鸯湖电厂</div>", //设置文本标注内容
+				});
+			
+				var marker12 = new AMap.Marker({
+					map: map,
+					position: [116.476555, 39.997621],
+					icon: "./car.png",
+					offset: new AMap.Pixel(0, 0),
+				});
+				marker12.setLabel({
+					direction: 'top',
+					offset: new AMap.Pixel(25, 40), //设置文本标注偏移量
+					content: "<div class='info' >苏融达化工</div>", //设置文本标注内容
 				});
 
+				var marker13 = new AMap.Marker({
+					map: map,
+					position: [116.479935, 39.997561],
+					icon: "./car.png",
+					offset: new AMap.Pixel(0, 0),
+				});
+				marker13.setLabel({
+					direction: 'top',
+					offset: new AMap.Pixel(25, 40), //设置文本标注偏移量
+					content: "<div class='info' >中试基地</div>", //设置文本标注内容
+				});
 
-				var marker, lineArr = [
+				
+				marker,lineArr = [
 					[116.478935, 39.997761],
 					[116.478939, 39.997825],
 					[116.478912, 39.998549],
@@ -899,7 +949,7 @@
 					// strokeStyle: "solid"  //线样式
 				});
 
-				var passedPolyline = new AMap.Polyline({
+				passedPolyline = new AMap.Polyline({
 					map: map,
 					strokeColor: "#AF5", //线颜色
 					strokeWeight: 6, //线宽
@@ -914,16 +964,61 @@
 				map.setFitView();
 
 
-
 				setInterval(() => {
+				    if($('#slideOne1').prop('checked')==false){
+						map.remove(passedPolyline)
+					}else{
+					   map.add(passedPolyline)
+						marker.on('moving', function(e) {
+							passedPolyline.setPath(e.passedPath);
+							//map.setCenter(e.target.getPosition(), true)
+						});		
+						marker.moveAlong(lineArr, {
+							// 每一段的时长
+							duration: 100, //可根据实际采集时间间隔设置
+							// JSAPI2.0 是否延道路自动设置角度在 moveAlong 里设置
+							autoRotation: true
+						});					
+					}
+
+				}, 5000)
+			});
+			
+		 $('document').ready(function(){
+		    //管道视图
+			$('#slideOne1').change(function(){
+			   if($('#slideOne1').prop('checked')==true){
+				   map.add(passedPolyline)
+					marker.on('moving', function(e) {
+						passedPolyline.setPath(e.passedPath);
+						//map.setCenter(e.target.getPosition(), true)
+					});		
 					marker.moveAlong(lineArr, {
 						// 每一段的时长
 						duration: 100, //可根据实际采集时间间隔设置
 						// JSAPI2.0 是否延道路自动设置角度在 moveAlong 里设置
 						autoRotation: true
-					});
-				}, 5000)
-			});
+					});	
+			   }else{
+				 map.remove(passedPolyline)
+			   }	
+			})
+			//信息显示
+			$('#slideOne2').change(function(){
+			   if($('#slideOne2').prop('checked')==true){
+			     $(".iconLeft").fadeIn();
+				 $(".iconRight").fadeIn();
+			     console.log("slideOne2==checked");
+			   }else{
+			     $(".iconLeft").fadeOut();
+				 $(".iconRight").fadeOut();
+				 console.log("slideOne2==unchecked");
+			   }	
+			})			
+		})	
+		$(document).ready(function() {
+			$('#select').select2();
+		});		
 		</script>
 
 		<script type="text/javascript" src="js/highcharts.js"></script>

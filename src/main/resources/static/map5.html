@@ -710,14 +710,16 @@
 				var r = window.parent.location.search.substr(1).match(reg);  //匹配目标参数
 				if (r != null) return unescape(r[2]); return null; //返回参数值
 			}
-			let aip=getParentUrlParam('aip');
-			let url;
-			if(aip==null){
-				url="http://47.99.77.150:8002";
-			}else{
-				url="http://"+aip+":8002";
-			}
+			let a_ip=getParentUrlParam('a_ip');
+			let a_port=getParentUrlParam('a_port');
 
+			if(a_ip==null){
+				a_ip="47.99.77.150";
+			}
+			if(a_port==null){
+				a_port="8002";
+			}
+			let url="http://"+a_ip+":"+a_port;
 			function showLocale(objD) {
 				var str, colorhead, colorfoot;
 				var yy = objD.getYear();

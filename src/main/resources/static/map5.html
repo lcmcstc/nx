@@ -845,21 +845,30 @@
 		</script>>
 		<script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=2a465ce90349f99886b417aeb804b6cf">
 		</script>
+<!--		地图-->
 		<script type="text/javascript">
+			$.ajaxSettings.async = false;
+			let stations;
+			let centre;
+			$.get(url+"/stationLocation/getLocation",function(data,status){
+				stations=data.station_locations;
+				centre=data.centre;
+			});
 		    var passedPolyline=null;
 			var marker =null;
 			var lineArr=[];
 			// 创建地图实例
 			var map = new AMap.Map("container", {
-				zoom: 17,
-				center: [116.478935, 39.997761],
+				zoom: 18,
+				center: [centre.lng, centre.lat],
+				//center: [116.479935, 39.997561],
 				resizeEnable: true,
 				rotateEnable: true,
 				pitchEnable: true,
 				viewMode: '3D',
 				pitch: 65,
 				rotation: -195,
-				mapStyle: 'amap://styles/be4fe665b7f1a63f77430e381ad86fd2'
+				mapStyle: 'amap://styles/be4fe665b7f1a63f77430e381ad86fd2',
 			});
 
 			AMap.plugin([
@@ -872,118 +881,126 @@
 					map.setRotation(deg)
 				}, 20)
 			});
-			
-			AMap.plugin('AMap.MoveAnimation', function() {
+
+			function createStationMarker(lng,lat,theName,map){
 				var marker11 = new AMap.Marker({
 					map: map,
-					position: [116.478935, 39.997761],
+					position: [lng, lat],
 					icon: "./car.png",
 					offset: new AMap.Pixel(0, 0),
 				});
 				marker11.setLabel({
 					direction: 'top',
 					offset: new AMap.Pixel(25, 40), //设置文本标注偏移量
-					content: "<div class='info' >鸳鸯湖电厂</div>", //设置文本标注内容
+					content: "<div class='info' >"+theName+"</div>", //设置文本标注内容
 				});
-			
-				var marker12 = new AMap.Marker({
-					map: map,
-					position: [116.476555, 39.997621],
-					icon: "./car.png",
-					offset: new AMap.Pixel(0, 0),
-				});
-				marker12.setLabel({
-					direction: 'top',
-					offset: new AMap.Pixel(25, 40), //设置文本标注偏移量
-					content: "<div class='info' >苏融达化工</div>", //设置文本标注内容
-				});
+			}
 
-				var marker13 = new AMap.Marker({
-					map: map,
-					position: [116.479935, 39.997561],
-					icon: "./car.png",
-					offset: new AMap.Pixel(0, 0),
-				});
-				marker13.setLabel({
-					direction: 'top',
-					offset: new AMap.Pixel(25, 40), //设置文本标注偏移量
-					content: "<div class='info' >中试基地</div>", //设置文本标注内容
-				});
+			AMap.plugin('AMap.MoveAnimation', function() {
+				for(let j=0;j<stations.length;j++){
+					createStationMarker(stations[j].lng,stations[j].lat,stations[j].theName,map);
+				}
+
+
+			
+				// var marker12 = new AMap.Marker({
+				// 	map: map,
+				// 	position: [116.476555, 39.997621],
+				// 	icon: "./car.png",
+				// 	offset: new AMap.Pixel(0, 0),
+				// });
+				// marker12.setLabel({
+				// 	direction: 'top',
+				// 	offset: new AMap.Pixel(25, 40), //设置文本标注偏移量
+				// 	content: "<div class='info' >苏融达化工</div>", //设置文本标注内容
+				// });
+				//
+				// var marker13 = new AMap.Marker({
+				// 	map: map,
+				// 	position: [116.479935, 39.997561],
+				// 	icon: "./car.png",
+				// 	offset: new AMap.Pixel(0, 0),
+				// });
+				// marker13.setLabel({
+				// 	direction: 'top',
+				// 	offset: new AMap.Pixel(25, 40), //设置文本标注偏移量
+				// 	content: "<div class='info' >中试基地</div>", //设置文本标注内容
+				// });
 
 				
-				marker,lineArr = [
-					[116.478935, 39.997761],
-					[116.478939, 39.997825],
-					[116.478912, 39.998549],
-					[116.478912, 39.998549],
-					[116.478998, 39.998555],
-					[116.478998, 39.998555],
-					[116.479282, 39.99856],
-					[116.479658, 39.998528],
-					[116.480151, 39.998453],
-					[116.480784, 39.998302],
-					[116.480784, 39.998302],
-					[116.481149, 39.998184],
-					[116.481573, 39.997997],
-					[116.481863, 39.997846],
-					[116.482072, 39.997718],
-					[116.482362, 39.997718],
-					[116.483633, 39.998935],
-					[116.48367, 39.998968],
-					[116.484648, 39.999861]
-				];
-
-				marker = new AMap.Marker({
-					map: map,
-					position: [116.478935, 39.997761],
-					icon: "./car.jpg",
-					offset: new AMap.Pixel(0, 0),
-				});
-
-				// 绘制轨迹
-				var polyline = new AMap.Polyline({
-					map: map,
-					path: lineArr,
-					// showDir:true,
-					strokeColor: "#202b35", //线颜色
-					// strokeOpacity: 1,     //线透明度
-					strokeWeight: 6, //线宽
-					// strokeStyle: "solid"  //线样式
-				});
-
-				passedPolyline = new AMap.Polyline({
-					map: map,
-					strokeColor: "#AF5", //线颜色
-					strokeWeight: 6, //线宽
-				});
-
-
-				marker.on('moving', function(e) {
-					passedPolyline.setPath(e.passedPath);
-					//map.setCenter(e.target.getPosition(), true)
-				});
+				// marker,lineArr = [
+				// 	[116.478935, 39.997761],
+				// 	[116.478939, 39.997825],
+				// 	[116.478912, 39.998549],
+				// 	[116.478912, 39.998549],
+				// 	[116.478998, 39.998555],
+				// 	[116.478998, 39.998555],
+				// 	[116.479282, 39.99856],
+				// 	[116.479658, 39.998528],
+				// 	[116.480151, 39.998453],
+				// 	[116.480784, 39.998302],
+				// 	[116.480784, 39.998302],
+				// 	[116.481149, 39.998184],
+				// 	[116.481573, 39.997997],
+				// 	[116.481863, 39.997846],
+				// 	[116.482072, 39.997718],
+				// 	[116.482362, 39.997718],
+				// 	[116.483633, 39.998935],
+				// 	[116.48367, 39.998968],
+				// 	[116.484648, 39.999861]
+				// ];
+				//
+				// marker = new AMap.Marker({
+				// 	map: map,
+				// 	position: [116.478935, 39.997761],
+				// 	icon: "./car.jpg",
+				// 	offset: new AMap.Pixel(0, 0),
+				// });
+				//
+				// // 绘制轨迹
+				// var polyline = new AMap.Polyline({
+				// 	map: map,
+				// 	path: lineArr,
+				// 	// showDir:true,
+				// 	strokeColor: "#202b35", //线颜色
+				// 	// strokeOpacity: 1,     //线透明度
+				// 	strokeWeight: 6, //线宽
+				// 	// strokeStyle: "solid"  //线样式
+				// });
+				//
+				// passedPolyline = new AMap.Polyline({
+				// 	map: map,
+				// 	strokeColor: "#AF5", //线颜色
+				// 	strokeWeight: 6, //线宽
+				// });
+				//
+				//
+				// marker.on('moving', function(e) {
+				// 	passedPolyline.setPath(e.passedPath);
+				// 	//map.setCenter(e.target.getPosition(), true)
+				// });
 
 				map.setFitView();
 
 
-				setInterval(() => {
-				    if($('#slideOne1').prop('checked')==false){
-						map.remove(passedPolyline)
-					}else{
-					   map.add(passedPolyline)
-						marker.on('moving', function(e) {
-							passedPolyline.setPath(e.passedPath);
-							//map.setCenter(e.target.getPosition(), true)
-						});		
-						marker.moveAlong(lineArr, {
-							// 每一段的时长
-							duration: 100, //可根据实际采集时间间隔设置
-							// JSAPI2.0 是否延道路自动设置角度在 moveAlong 里设置
-							autoRotation: true
-						});					
-					}
-
-				}, 5000)
+				// setInterval(() => {
+				//     if($('#slideOne1').prop('checked')==false){
+				// 		map.remove(passedPolyline)
+				// 	}else{
+				// 	   map.add(passedPolyline)
+				// 		marker.on('moving', function(e) {
+				// 			passedPolyline.setPath(e.passedPath);
+				// 			//map.setCenter(e.target.getPosition(), true)
+				// 		});
+				// 		marker.moveAlong(lineArr, {
+				// 			// 每一段的时长
+				// 			duration: 100, //可根据实际采集时间间隔设置
+				// 			// JSAPI2.0 是否延道路自动设置角度在 moveAlong 里设置
+				// 			autoRotation: true
+				// 		});
+				// 	}
+				//
+				// }, 5000)
 			});
 			
 		 $('document').ready(function(){

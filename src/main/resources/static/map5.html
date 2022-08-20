@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
 		<link href="css/select2.min.css" rel="stylesheet" />
 		<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
-		<link href=/static/css/app.9072ba99b6056eecbaa212c1d4120746.css rel=stylesheet>
+		<link href=/static/css/app.fc77a22e12665ea5e5df8f9613f15556.css rel=stylesheet>
 		<style>
 			html,
 			body,
@@ -695,7 +695,7 @@
 		</script>
 		<script type=text/javascript src=/static/js/vendor.1d6789a5674f8cb0e499.js>
 		</script>
-		<script type=text/javascript src=/static/js/app.c22c9e65d85451085094.js>
+		<script type=text/javascript src=/static/js/app.f358e346d4bb7718c6b3.js>
 		</script>
 		<script>
 			document.addEventListener('gesturestart', function(event) {
@@ -1108,6 +1108,41 @@
 				});
 			}
 
+		 $('document').ready(function(){
+		    //管道视图
+			$('#slideOne1').change(function(){
+			   if($('#slideOne1').prop('checked')==true){
+				   map.add(passedPolyline)
+					marker.on('moving', function(e) {
+						passedPolyline.setPath(e.passedPath);
+						//map.setCenter(e.target.getPosition(), true)
+					});
+					marker.moveAlong(lineArr, {
+						// 每一段的时长
+						duration: 100, //可根据实际采集时间间隔设置
+						// JSAPI2.0 是否延道路自动设置角度在 moveAlong 里设置
+						autoRotation: true
+					});
+			   }else{
+				 map.remove(passedPolyline)
+			   }
+			})
+			//信息显示
+			$('#slideOne2').change(function(){
+			   if($('#slideOne2').prop('checked')==true){
+			     $(".iconLeft").fadeIn();
+				 $(".iconRight").fadeIn();
+			     console.log("slideOne2==checked");
+			   }else{
+			     $(".iconLeft").fadeOut();
+				 $(".iconRight").fadeOut();
+				 console.log("slideOne2==unchecked");
+			   }
+			})
+		})
+		$(document).ready(function() {
+			$('#select').select2();
+		});
 		</script>
 		<script>
 			$(function() {

@@ -1126,7 +1126,7 @@
 					var lineHeight = $self.find("li:first").height();
 					$self.animate({
 						"marginTop": -lineHeight + "px"
-					}, 600, function() {
+					}, 1,'linear', function() {
 						$self.css({
 							marginTop: 0
 						}).find("li:first").appendTo($self);

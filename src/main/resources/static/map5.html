@@ -485,7 +485,7 @@
 		<div class="content" style="pointer-events:none;">
 			<div class="leftContent">
 				<div class="w100"><img src="images/leftt.png" class="w100"></div>
-				<div class="leftc" id="news" style="height: 720px;overflow: hidden;ss">
+				<div class="leftc" id="news" style="height: 720px;overflow: hidden;">
 
 					<div class="leftList">
 						<div class="listName">用户</div>
@@ -765,24 +765,37 @@
 				window.setTimeout("tick()", 1000);
 			}
 			tick();
+
+
 		</script>
 		<script>
-			//左侧轮播列表渲染
-			$.get(url+"/realData/RealData_Left_List",function(data,status){
-				let strHtml='';
-				for(let i=0; i<data.length; i++){
-					strHtml+='<li class="leftList1">' +
-							'<div class="listName1">'+data[i].theName+'</div>' +
-							'<div class="listOther">'+data[i].f+'</div>' +
-							'<div class="listOther">'+data[i].t+'</div>' +
-							'<div class="listOther">'+data[i].p+'</div>' +
-							'</li>';
-				}
-				$("#RealData_Left_List")[0].innerHTML=strHtml;
-			});
+			updateRLL();
+			//轮播列表1小时更新一次
+			let It1 = setInterval(function(){
+				updateRLL();
+			},60*60*1000);
+			function updateRLL(){
+				//左侧轮播列表渲染
+				$.get(url + "/realData/RealData_Left_List", function (data, status) {
+					let strHtml = '';
+					for (let i = 0; i < data.length; i++) {
+						strHtml += '<li class="leftList1">' +
+								'<div class="listName1">' + data[i].theName + '</div>' +
+								'<div class="listOther">' + data[i].f + '</div>' +
+								'<div class="listOther">' + data[i].t + '</div>' +
+								'<div class="listOther">' + data[i].p + '</div>' +
+								'</li>';
+					}
+					$("#RealData_Left_List")[0].innerHTML = strHtml;
+				});
+			}
 
-			//下拉框初始化
 			selectInit();
+			//下拉框初始化,每隔1小时更新一次
+			let It2 = setInterval(function(){
+				selectInit();
+			},60*60*1000);
+
 			function selectInit(){
 				var i_name;
 				var i_value;
@@ -805,6 +818,11 @@
 					fillreport();
 				})
 			});
+
+			//单个站点详细数据每隔1分钟更新一次
+			let It3 = setInterval(function(){
+				fillreport();
+			},60*1000);
 
 			function fillreport() {
 				var name = $("#select  option:selected").text(); //获取select里的内容
@@ -1051,14 +1069,21 @@
 		<script src="https://cdn.highcharts.com.cn/highcharts/modules/exporting.js"></script>
 		<script type="text/javascript" src="js/highcharts-zh_CN.js"></script>
 		<script>
-			//右侧统计信息
-			$.get(url+"/realData/RealData_right_mid",function(data,status){
-				$("#totalUserNum")[0].innerHTML=data.totalUserNum;
-				$("#textilePollution")[0].innerHTML=data.textilePollution;
-				$("#sewageTreatment")[0].innerHTML=data.sewageTreatment;
-				$("#chemicalPharmaceutical")[0].innerHTML=data.chemicalPharmaceutical;
-				lmd(data.textilePollution,data.sewageTreatment,data.chemicalPharmaceutical);
-			});
+			updateRRM();
+			//右侧统计信息，每隔1小时更新一次
+			let It4 = setInterval(function(){
+				updateRRM();
+			},60*60*1000);
+			function updateRRM(){
+				//右侧统计信息
+				$.get(url + "/realData/RealData_right_mid", function (data, status) {
+					$("#totalUserNum")[0].innerHTML = data.totalUserNum;
+					$("#textilePollution")[0].innerHTML = data.textilePollution;
+					$("#sewageTreatment")[0].innerHTML = data.sewageTreatment;
+					$("#chemicalPharmaceutical")[0].innerHTML = data.chemicalPharmaceutical;
+					lmd(data.textilePollution, data.sewageTreatment, data.chemicalPharmaceutical);
+				});
+			}
 
 			function lmd(textilePollution,sewageTreatment,chemicalPharmaceutical){
 				var chart = Highcharts.chart('chart_1', {

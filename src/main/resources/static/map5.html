@@ -485,7 +485,7 @@
 		<div class="content" style="pointer-events:none;">
 			<div class="leftContent">
 				<div class="w100"><img src="images/leftt.png" class="w100"></div>
-				<div class="leftc" id="news" style="height: 740px;overflow: hidden;ss">
+				<div class="leftc" id="news" style="height: 720px;overflow: hidden;ss">
 
 					<div class="leftList">
 						<div class="listName">用户</div>
@@ -717,10 +717,12 @@
 			let a_port=getParentUrlParam('a_port');
 
 			if(a_ip==null){
-				a_ip="47.99.77.150";
+				//默认后端应用的IP，可自己更改
+				a_ip="127.0.0.1";
 			}
 			if(a_port==null){
-				a_port="8002";
+				//默认后端应用的端口，可自己更改
+				a_port="8004";
 			}
 			let url="http://"+a_ip+":"+a_port;
 			function showLocale(objD) {

@@ -315,6 +315,7 @@
 				text-align: center;
 			}
 
+
 			.right_infor {
 				width: 100%;
 				overflow: hidden;
@@ -393,6 +394,14 @@
 
 			.right_btns .s_single .l_tip {
 				float: left;
+				color: #fff;
+				font-size: 16px;
+				line-height: 30px;
+				margin-top: 16px;
+			}
+
+			.l_tip {
+				margin-left:41%;
 				color: #fff;
 				font-size: 16px;
 				line-height: 30px;
@@ -645,9 +654,9 @@
 						<div class="s_tit">总计用户数量</div>
 						<div class="s_num" id="totalUserNum">20</div>
 						<div class="s_series">
-							<div><span>纺织印刷</span><label id="sewageTreatment">10</label></div>
-							<div><span>污水处理</span><label id="textilePollution">02</label></div>
-							<div><span>化工制药</span><label id="chemicalPharmaceutical">08</label></div>
+							<div><span>新能源新材料</span><label id="sewageTreatment">10</label></div>
+							<div><span>生物科技</span><label id="textilePollution">02</label></div>
+							<div><span>化工化学</span><label id="chemicalPharmaceutical">08</label></div>
 						</div>
 						<!--/s_series-->
 						<div style="width:80%;margin:10px auto;height:200px;background:None;" id="chart_1">
@@ -659,18 +668,18 @@
 				<div class="right_btns">
 					<div class="w100"><img src="images/leftt.png" class="w100"></div>
 					<div class="leftc">
-						<div class="s_single">
-							<div class="l_tip">管道视图</div>
-							<div class="r_txt">
-								<div class="slideOne1">
-									<input type="checkbox" value="None2" id="slideOne1" name="check1" checked />
-									<label for="slideOne1"></label>
-								</div>
-							</div>
-							<!--/r_txt-->
-						</div>
+<!--						<div class="s_single">-->
+<!--							<div class="l_tip">管道视图</div>-->
+<!--							<div class="r_txt">-->
+<!--								<div class="slideOne1">-->
+<!--									<input type="checkbox" value="None2" id="slideOne1" name="check1" checked />-->
+<!--									<label for="slideOne1"></label>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--							&lt;!&ndash;/r_txt&ndash;&gt;-->
+<!--						</div>-->
 						<!--/s_single-->
-						<div class="s_single">
+						<div class="s_single2">
 							<div class="l_tip">信息显示</div>
 							<div class="r_txt">
 								<div class="slideOne2">
@@ -819,10 +828,22 @@
 				})
 			});
 
-			//单个站点详细数据每隔1分钟更新一次
+			let select_index=0;
+			//每drawList_play_time秒自动切换下拉框
+			let drawList_play_time=getParentUrlParam('drawList_play_time');
+			if(drawList_play_time==null){
+				drawList_play_time=10;
+			}
 			let It3 = setInterval(function(){
+				let size_select=$("#select option").length;
+				select_index++;
+				let ssq=$('#select option:eq('+select_index%size_select+')');
+				var i_name=ssq.text();
+				var i_value=ssq.val();
+				$("#select  option:selected").text(i_name);
+				$("#select  option:selected").val(i_value);
 				fillreport();
-			},60*1000);
+			},drawList_play_time*1000);
 
 			function fillreport() {
 				var name = $("#select  option:selected").text(); //获取select里的内容
@@ -1114,18 +1135,18 @@
 						type: 'pie',
 						name: '用户数据',
 						data: [{
-							name: '纺织印刷',
+							name: '新能源新材料',
 							y: sewageTreatment,
 							color: "#2c95ff",
 						},
 							{
-								name: '污水处理',
+								name: '生物科技',
 								y: textilePollution,
 								selected: true,
 								color: "#20d2ff",
 							},
 							{
-								name: '化工制药',
+								name: '化工化学',
 								y: chemicalPharmaceutical,
 								selected: false,
 								color: "#fff",
@@ -1168,7 +1189,7 @@
 			})
 		})
 		$(document).ready(function() {
-			$('#select').select2();
+			 $('#select').select2();
 		});
 		</script>
 		<script>

@@ -838,11 +838,8 @@
 				let size_select=$("#select option").length;
 				select_index++;
 				let ssq=$('#select option:eq('+select_index%size_select+')');
-				var i_name=ssq.text();
-				var i_value=ssq.val();
-				$("#select  option:selected").text(i_name);
-				$("#select  option:selected").val(i_value);
-				fillreport();
+				document.getElementById("selectName").innerHTML = ssq.text();
+				updateMain(ssq.val());
 			},drawList_play_time*1000);
 
 			function fillreport() {

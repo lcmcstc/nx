@@ -727,7 +727,7 @@
 
 			if(a_ip==null){
 				//默认后端应用的IP，可自己更改
-				a_ip="127.0.0.1";
+				a_ip="10.240.72.231";
 			}
 			if(a_port==null){
 				//默认后端应用的端口，可自己更改
@@ -778,14 +778,22 @@
 
 		</script>
 		<script>
+			let page=0;
+			//获取轮播页大小(每次轮播多少用户数量)
+			let pageSize=getParentUrlParam('pageSize');
+			if(pageSize==null){
+				//默认每次轮播11个用户信息
+				pageSize=11;
+			}
 			updateRLL();
-			//轮播列表1小时更新一次
+			//轮播列表30秒更新一次
 			let It1 = setInterval(function(){
 				updateRLL();
-			},60*60*1000);
+			},30*1000);
 			function updateRLL(){
+
 				//左侧轮播列表渲染
-				$.get(url + "/realData/RealData_Left_List", function (data, status) {
+				$.get(url + "/realData/RealData_Left_List?page="+page+"&pageSize="+pageSize, function (data, status) {
 					let strHtml = '';
 					for (let i = 0; i < data.length; i++) {
 						strHtml += '<li class="leftList1">' +
@@ -797,6 +805,7 @@
 					}
 					$("#RealData_Left_List")[0].innerHTML = strHtml;
 				});
+				page++;
 			}
 
 			selectInit();
@@ -832,7 +841,7 @@
 			//每drawList_play_time秒自动切换下拉框
 			let drawList_play_time=getParentUrlParam('drawList_play_time');
 			if(drawList_play_time==null){
-				drawList_play_time=10;
+				drawList_play_time=30;
 			}
 			let It3 = setInterval(function(){
 				let size_select=$("#select option").length;
@@ -1190,29 +1199,31 @@
 		});
 		</script>
 		<script>
-			$(function() {
-				var $this = $("#news");
-				var scrollTimer;
-				$this.hover(function() {
-					clearInterval(scrollTimer);
-				}, function() {
-					scrollTimer = setInterval(function() {
-						scrollNews($this);
-					}, 2000);
-				}).trigger("mouseleave");
 
-				function scrollNews(obj) {
-					var $self = obj.find("ul");
-					var lineHeight = $self.find("li:first").height();
-					$self.animate({
-						"marginTop": -lineHeight + "px"
-					}, 1,'linear', function() {
-						$self.css({
-							marginTop: 0
-						}).find("li:first").appendTo($self);
-					})
-				}
-			})
+			// 轮播列表轮播效果
+			// $(function() {
+			// 	var $this = $("#news");
+			// 	var scrollTimer;
+			// 	$this.hover(function() {
+			// 		clearInterval(scrollTimer);
+			// 	}, function() {
+			// 		scrollTimer = setInterval(function() {
+			// 			scrollNews($this);
+			// 		}, 2000);
+			// 	}).trigger("mouseleave");
+			//
+			// 	function scrollNews(obj) {
+			// 		var $self = obj.find("ul");
+			// 		var lineHeight = $self.find("li:first").height();
+			// 		$self.animate({
+			// 			"marginTop": -lineHeight + "px"
+			// 		}, 1,'linear', function() {
+			// 			$self.css({
+			// 				marginTop: 0
+			// 			}).find("li:first").appendTo($self);
+			// 		})
+			// 	}
+			// })
 		</script>
 	</body>
 </html>

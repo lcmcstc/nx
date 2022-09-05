@@ -20,6 +20,6 @@ public interface RealDataMapper extends BaseMapper<RealData> {
     @Select("select * from realData where station=#{stationId}")
     RealData getByStation(int stationId);
 
-    @Select("select b2.theName,b1.f,b1.t,b1.p from realData b1 left join stationInfo b2 on b1.station=b2.sNo")
+    @Select("select b2.theName,b1.f,b1.t,b1.p from stationInfo b2 left join realData b1 on b1.station=b2.sNo where b2.isUse=1 order by b2.sNo asc")
     List<RealData_Left_List> RealData_left_list_all();
 }

@@ -18,6 +18,6 @@ import java.util.List;
  */
 @Mapper
 public interface StationInfoMapper extends BaseMapper<StationInfo> {
-    @Select("select sno,theName from stationInfo;")
+    @Select("select sno,theName from stationInfo where isUse=1 order by sNo asc;")
     List<StationInfo_draw_list> StationInfo_draw_list();
 }

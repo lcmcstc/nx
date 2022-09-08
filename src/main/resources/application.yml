@@ -21,3 +21,4 @@ initdata:
   textile_pollution: 10
   sewage_treatment: 2
   chemical_pharmaceutical: 8
+  totalUserNum: 11

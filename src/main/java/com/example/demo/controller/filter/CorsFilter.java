@@ -27,7 +27,7 @@ public class CorsFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        System.out.println("=======================================================跨域配置完成=================================================");
+        //System.out.println("=======================================================跨域配置完成=================================================");
     }
 
     @Override

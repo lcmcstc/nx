@@ -33,6 +33,8 @@ public class RealDataController {
     int sewage_treatment;
     @Value("${initdata.chemical_pharmaceutical}")
     int chemical_pharmaceutical;
+    @Value("${initdata.totalUserNum}")
+    int totalUserNum;
 
 
     @Resource
@@ -85,12 +87,14 @@ public class RealDataController {
         r.setSewageTreatment(sewage_treatment);
         r.setTextilePollution(textile_pollution);
         r.setChemicalPharmaceutical(chemical_pharmaceutical);
-        r.setTotalUserNum(realDataService.count());
+        //r.setTotalUserNum(realDataService.count());
+        r.setTotalUserNum(totalUserNum);
         return r;
     }
 
     @GetMapping("/setUserType")
-    public boolean setUserType(Integer textilePollution,Integer sewageTreatment,Integer chemicalPharmaceutical){
+    public boolean setUserType(Integer textilePollution,Integer sewageTreatment,
+                               Integer chemicalPharmaceutical,Integer totalUserNum){
 
         if(chemicalPharmaceutical!=null) {
             this.chemical_pharmaceutical = chemicalPharmaceutical;
@@ -100,6 +104,9 @@ public class RealDataController {
         }
         if(textilePollution!=null) {
             this.textile_pollution = textilePollution;
+        }
+        if(totalUserNum!=null){
+            this.totalUserNum=totalUserNum;
         }
         return true;
     }
